@@ -11,6 +11,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey,
       appBar: AppBar(
         centerTitle: false,
         title: Text('Pesquisar'),
@@ -26,8 +27,9 @@ class _HomePageState extends State<HomePage> {
       child: ListView(
         children: [
           Container(
+            decoration: BoxDecoration(
+                color: Colors.purple, borderRadius: BorderRadius.circular(16)),
             padding: EdgeInsets.all(16),
-            color: Colors.purple,
             child: Row(
               children: [
                 Expanded(
@@ -67,68 +69,106 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          SizedBox(height: 16),
-          Card(
+          const SizedBox(height: 16),
+          buildCard(
+            imagem: 'https://a.cdn-hotels.com/gdcs/production97/d402/6baff29c-e43b-4caf-a9e8-5dcf1279dea0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
+            titulo: 'Pacote Cancún 2022/2023',
+            transporte: 'Aéreo - Hotel All inclusive',
+            numDiarias: 5,
+            numPessoas: 2,
+            numParcelas: 6,
+            precoAntigo: 6819,
+            precoAtual: 2819,
+          ),
+          buildCard(
+            imagem: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSB5rIrZJE4K5HnZId4Xv_UMUxVj3UBDr3YDRs7N0eeJwLMCVb7JFkwh0DgOOvh2LcfTcI&usqp=CAU',
+            titulo: 'Pacote Maragogi 2023',
+            transporte: 'Hotel All inclusive',
+            numDiarias: 7,
+            numPessoas: 3,
+            numParcelas: 12,
+            precoAntigo: 4819,
+            precoAtual: 819,
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildCard({
+    required String imagem,
+    required String titulo,
+    required String transporte,
+    required int numDiarias,
+    required int numPessoas,
+    required double precoAntigo,
+    required double precoAtual,
+    required int numParcelas,
+  }) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.vertical(
+              top: Radius.circular(16),
+            ),
+            child: Image.network(imagem),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Placeholder(fallbackHeight: 150),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Pacote Cancún 2021',
-                        style: TextStyle(
-                          fontSize: 21,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text('Aéreo - Hotel All incluse '),
-                      SizedBox(height: 8),
-                      Row(
-                        children: const [
-                          Icon(Icons.wb_sunny_outlined),
-                          SizedBox(width: 4),
-                          Text('05 Diárias'),
-                          SizedBox(width: 8),
-                          Icon(Icons.person_outline),
-                          SizedBox(width: 4),
-                          Text('01 Pessoa'),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Text('A partir de R\$ 6816'),
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'R\$ 3.749',
-                            style: TextStyle(
-                              fontSize: 28,
-                              color: Colors.orange,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(width: 8),
-                          Text('Taxa Grátis em até 12x'),
-                        ],
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        'Cancelamento Grátis',
-                        style: TextStyle(
-                            color: Colors.green[700],
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                    ],
+                Text(
+                  titulo,
+                  style: const TextStyle(
+                    fontSize: 21,
+                    fontWeight: FontWeight.bold,
                   ),
-                )
+                ),
+                SizedBox(height: 8),
+                Text(transporte),
+                const SizedBox(height: 8),
+                Row(
+                  children: [
+                    const Icon(Icons.wb_sunny_outlined),
+                    const SizedBox(width: 4),
+                    Text('$numDiarias Diárias'),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.person_outline),
+                    const SizedBox(width: 4),
+                    Text('$numPessoas Pessoa'),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Text('A partir de R\$ $precoAntigo'),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'R\$ $precoAtual',
+                      style: const TextStyle(
+                        fontSize: 28,
+                        color: Colors.orange,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(width: 8),
+                    Text('Taxa Grátis em até ${numParcelas}x'),
+                  ],
+                ),
+                SizedBox(height: 8),
+                Text(
+                  'Cancelamento Grátis',
+                  style: TextStyle(
+                      color: Colors.green[700], fontWeight: FontWeight.bold),
+                ),
               ],
             ),
-          ),
+          )
         ],
       ),
     );
