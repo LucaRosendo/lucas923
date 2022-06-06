@@ -1,5 +1,6 @@
-import 'package:aula_923/pages/detalhes_pacote.dart';
-import 'package:aula_923/widget/pacote_turistico.dart';
+import 'package:aula_923/domain/pacote_turistico.dart';
+import 'package:aula_923/pages/pacote_promocional.dart';
+import 'package:aula_923/widget/card_pacote_turistico.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,14 +11,41 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  PacoteTuristico pacote1 = PacoteTuristico(
+    imagem: 'https://a.cdn-hotels.com/gdcs/production97/d402/6baff29c-e43b-4caf-a9e8-5dcf1279dea0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
+    titulo: 'Pacote Cancún 2022/2023',
+    transporte: 'Aéreo - Hotel All inclusive',
+    cidade: 'CANCÚN, MEX',
+    validade: 'De 01 ago 2022 até 30 set 2023',
+    numDiarias: 5,
+    numPessoas: 2,
+    numParcelas: 6,
+    desconto: 45,
+    precoAntigo: 6819,
+    precoAtual: 2819,
+  );
+  PacoteTuristico pacote2 = PacoteTuristico(
+    imagem: 'https://letsdive.com.br/wp-content/uploads/2019/04/PROCURANDO-MERGULHO-EM-MARAGOGI-CONSIDERE-MACEIO.png',
+    titulo: 'Pacote Maragogi 2023',
+    transporte: 'Hotel All inclusive',
+    cidade: 'MARAGOGI, BRA',
+    validade: 'De 01 ago 2022 até 30 set 2023',
+    numDiarias: 7,
+    numPessoas: 3,
+    numParcelas: 12,
+    desconto: 30,
+    precoAntigo: 4819,
+    precoAtual: 819,
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
         centerTitle: false,
-        title: Text('Pesquisar'),
-        backgroundColor: Color(0xFF10397B),
+        title: const Text('Pesquisar'),
+        backgroundColor: const Color(0xFF10397B),
       ),
       body: buildBody(),
     );
@@ -40,14 +68,14 @@ class _HomePageState extends State<HomePage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
-                      Text(
+                      const Text(
                         'TOP DESTINOS MAIS BUSCADOS',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 24,
                             fontWeight: FontWeight.bold),
                       ),
-                      Text(
+                      const Text(
                         'Corre que ta rolando muita promoção',
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
@@ -58,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) {
-                                return const PacoteDetalhes();
+                                return const PacotePromocional();
                               },
                             ),
                           );
@@ -83,28 +111,8 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           const SizedBox(height: 16),
-          const PacoteTuristico(
-            imagem:
-                'https://a.cdn-hotels.com/gdcs/production97/d402/6baff29c-e43b-4caf-a9e8-5dcf1279dea0.jpg?impolicy=fcrop&w=800&h=533&q=medium',
-            titulo: 'Pacote Cancún 2022/2023',
-            transporte: 'Aéreo - Hotel All inclusive',
-            numDiarias: 5,
-            numPessoas: 2,
-            numParcelas: 6,
-            precoAntigo: 6819,
-            precoAtual: 2819,
-          ),
-          const PacoteTuristico(
-            imagem:
-                'https://letsdive.com.br/wp-content/uploads/2019/04/PROCURANDO-MERGULHO-EM-MARAGOGI-CONSIDERE-MACEIO.png',
-            titulo: 'Pacote Maragogi 2023',
-            transporte: 'Hotel All inclusive',
-            numDiarias: 7,
-            numPessoas: 3,
-            numParcelas: 12,
-            precoAntigo: 4819,
-            precoAtual: 819,
-          ),
+          CardPacoteTuristico(pacoteTuristico: pacote1),
+          CardPacoteTuristico(pacoteTuristico: pacote2),
         ],
       ),
     );
