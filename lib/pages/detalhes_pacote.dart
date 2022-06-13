@@ -1,5 +1,6 @@
 import 'package:aula_923/domain/pacote_turistico.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class PacoteDetalhes extends StatefulWidget {
   final PacoteTuristico pacoteTuristico;
@@ -30,19 +31,61 @@ class _PacoteDetalhesState extends State<PacoteDetalhes> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(pacote.cidade),
-              const SizedBox(height: 16),
-              Text(pacote.titulo),
-              const SizedBox(height: 16),
-              Text(pacote.transporte),
-              const SizedBox(height: 16),
-              Text('${pacote.numDiarias}'),
-              const SizedBox(height: 16),
-              Text(pacote.validade),
+              Text(
+                pacote.cidade,
+              ),
+              const SizedBox(height: 8),
+              buildText(text: pacote.titulo, fontSize: 21, isBold: true),
+              const SizedBox(height: 8),
+              buildText(text: pacote.transporte),
+              const SizedBox(height: 8),
+              buildText(text: '${pacote.numDiarias}'),
+              const SizedBox(height: 8),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  buildText(text: 'Válido para o periodo: ', isBold: true),
+                  buildText(text: 'A partir de: R\$ ${pacote.precoAntigo}'),
+                ],
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: buildText(
+                      text: pacote.validade,
+                      fontSize: 21,
+                      isBold: true,
+                    ),
+                  ),
+                  const SizedBox(width: 24),
+                  buildText(
+                    text: 'R\$ ${pacote.precoAtual}',
+                    fontSize: 36,
+                    isBold: true,
+                    color: const Color(0xFFFD6C00)
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  Text buildText({
+    required String text,
+    double fontSize = 14,
+    bool isBold = false,
+    Color color = Colors.black,
+  }) {
+    return Text(
+      text,
+      style: GoogleFonts.montserrat(
+        color: color,
+        fontSize: fontSize,
+        fontWeight: isBold ? FontWeight.w600 : null,
+      ),
     );
   }
 }
